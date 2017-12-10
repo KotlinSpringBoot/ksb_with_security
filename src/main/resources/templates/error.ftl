@@ -9,12 +9,11 @@
 
     <article>
         <code>
-        <#list stackTrace as line >
+        <#list stackTrace! as line >
             <p>${line}</p>
         </#list>
         </code>
     </article>
-
 
 </div>
 
