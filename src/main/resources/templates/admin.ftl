@@ -8,7 +8,4 @@
 </div>
 
 
-
-
-
 <#include 'common/footer.ftl'>
