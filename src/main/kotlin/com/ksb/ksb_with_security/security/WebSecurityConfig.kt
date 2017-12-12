@@ -1,5 +1,6 @@
 package com.ksb.ksb_with_security.security
 
+import com.ksb.ksb_with_security.handler.MyAccessDeniedHandler
 import com.ksb.ksb_with_security.service.MyUserDetailService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -24,10 +25,10 @@ jsr250Enabled ：决定 JSR-250 annotations 注解[@RolesAllowed..] 是否可用
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
-//    @Bean
-//    fun myAccessDeniedHandler(): AccessDeniedHandler {
-//        return MyAccessDeniedHandler()
-//    }
+    @Bean
+    fun myAccessDeniedHandler(): AccessDeniedHandler {
+        return MyAccessDeniedHandler("/403")
+    }
 
     @Bean
     override fun userDetailsService(): UserDetailsService {
@@ -51,8 +52,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
             .passwordParameter("password")
             .defaultSuccessUrl("/main").permitAll()
             .and()
-//            .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler())
-            .exceptionHandling().accessDeniedPage("/403")
+            .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler())
+//            .exceptionHandling().accessDeniedPage("/403")
             .and()
             .logout().permitAll()
 
