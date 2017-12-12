@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.web.access.AccessDeniedHandler
 
 /**
 prePostEnabled :决定Spring Security的前注解是否可用 [@PreAuthorize,@PostAuthorize,..]
@@ -22,8 +23,14 @@ jsr250Enabled ：决定 JSR-250 annotations 注解[@RolesAllowed..] 是否可用
 // 开启 Spring Security 方法级安全
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 class WebSecurityConfig : WebSecurityConfigurerAdapter() {
+
+//    @Bean
+//    fun myAccessDeniedHandler(): AccessDeniedHandler {
+//        return MyAccessDeniedHandler()
+//    }
+
     @Bean
-    public override fun userDetailsService(): UserDetailsService {
+    override fun userDetailsService(): UserDetailsService {
         return MyUserDetailService()
     }
 
@@ -44,6 +51,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
             .passwordParameter("password")
             .defaultSuccessUrl("/main").permitAll()
             .and()
+//            .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler())
             .exceptionHandling().accessDeniedPage("/403")
             .and()
             .logout().permitAll()
