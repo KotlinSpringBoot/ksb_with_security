@@ -27,7 +27,6 @@
     <property name="LOG_FILE"
               value="${logging.path:-.}/${logging.file:-${spring.application.name:-spring}.log}"/>
 
-
     <property name="MAX_SIZE"
               value="${logging.file.max-size:-10MB}"/>
 

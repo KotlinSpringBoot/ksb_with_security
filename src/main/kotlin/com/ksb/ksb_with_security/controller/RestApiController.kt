@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/api")
 class RestApiController {
 
-    @GetMapping(value = ["/session"])
     @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = ["/session"])
     fun hello(request: HttpServletRequest): Map<String, Any> {
         val session = request.session
         val attributes = mutableMapOf<String, Any>()

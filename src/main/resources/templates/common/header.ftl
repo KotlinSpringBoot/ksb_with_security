@@ -67,7 +67,6 @@
         var items = $('[datatype="nav-item"]')
 
         items.each(function () {
-            debugger;
             var url = this.children[0].href
             if (href === url) {
                 items.removeClass('active')

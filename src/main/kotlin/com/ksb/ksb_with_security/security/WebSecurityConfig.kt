@@ -2,6 +2,7 @@ package com.ksb.ksb_with_security.security
 
 import com.ksb.ksb_with_security.handler.MyAccessDeniedHandler
 import com.ksb.ksb_with_security.service.MyUserDetailService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -11,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.web.access.AccessDeniedHandler
 
 /**
 prePostEnabled :决定Spring Security的前注解是否可用 [@PreAuthorize,@PostAuthorize,..]
@@ -24,11 +24,7 @@ jsr250Enabled ：决定 JSR-250 annotations 注解[@RolesAllowed..] 是否可用
 // 开启 Spring Security 方法级安全
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 class WebSecurityConfig : WebSecurityConfigurerAdapter() {
-
-    @Bean
-    fun myAccessDeniedHandler(): AccessDeniedHandler {
-        return MyAccessDeniedHandler("/403")
-    }
+    @Autowired lateinit var myAccessDeniedHandler: MyAccessDeniedHandler
 
     @Bean
     override fun userDetailsService(): UserDetailsService {
@@ -39,23 +35,23 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http.csrf().disable()
         http.authorizeRequests()
-            .antMatchers("/", // 首页不拦截
-                    "/css/**",
-                    "/fonts/**",
-                    "/js/**",
-                    "/images/**" // 不拦截静态资源
-            ).permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .formLogin().loginPage("/login")// url 请求路径，对应 LoginController 里面的 @GetMapping("/login")
-            .usernameParameter("username")
-            .passwordParameter("password")
-            .defaultSuccessUrl("/main").permitAll()
-            .and()
-            .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler())
+                .antMatchers("/", // 首页不拦截
+                        "/css/**",
+                        "/fonts/**",
+                        "/js/**",
+                        "/images/**" // 不拦截静态资源
+                ).permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().loginPage("/login")// url 请求路径，对应 LoginController 里面的 @GetMapping("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/main").permitAll()
+                .and()
+                .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
 //            .exceptionHandling().accessDeniedPage("/403")
-            .and()
-            .logout().permitAll()
+                .and()
+                .logout().permitAll()
 
         http.logout().logoutSuccessUrl("/")
 
@@ -65,7 +61,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(auth: AuthenticationManagerBuilder) {
         //AuthenticationManager 使用我们的 MyUserDetailService 来获取用户信息
         auth.userDetailsService(userDetailsService())
-            .passwordEncoder(passwordEncoder())
+                .passwordEncoder(passwordEncoder())
     }
 
     /**
