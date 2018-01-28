@@ -3,16 +3,17 @@ package com.ksb.ksb_with_security.advice
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import javax.servlet.http.HttpServletRequest
 
 
-@ControllerAdvice(basePackages = arrayOf("com.ksb.ksb_with_shiro"))
+@ControllerAdvice(basePackages = ["com.ksb.ksb_with_security.controller"])
 class GlobalExceptionHandlerAdvice {
 
-    /**表示捕捉到 Exception的异常*/
     @ExceptionHandler(value = Exception::class)
-    fun exception(exception: Exception, model: Model): String {
+    fun exception(exception: Exception, req: HttpServletRequest, model: Model): String {
         model.addAttribute("errorMessage", exception.message)
         model.addAttribute("stackTrace", exception.stackTrace)
+        model.addAttribute("url", req.requestURL)
         return "/error"
     }
 }

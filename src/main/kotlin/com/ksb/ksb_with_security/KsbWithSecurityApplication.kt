@@ -48,7 +48,6 @@ fun main(args: Array<String>) {
                             userDao.save(admin)
 
                         } catch (e: Exception) {
-                            e.printStackTrace()
                         }
                     }
                 }

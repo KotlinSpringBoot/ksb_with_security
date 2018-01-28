@@ -12,13 +12,10 @@ import org.springframework.stereotype.Service
 @Service
 class MyUserDetailService : UserDetailsService {
     val logger = LoggerFactory.getLogger(MyUserDetailService::class.java)
-
     @Autowired lateinit var userDao: UserDao
-
 
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userDao.findByUsername(username) ?: throw  UsernameNotFoundException(username + " not found")
-
         logger.info("user = {}", user)
         val roles = user.roles
         val authorities = mutableSetOf<SimpleGrantedAuthority>()

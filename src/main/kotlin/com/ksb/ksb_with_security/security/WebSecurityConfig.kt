@@ -54,7 +54,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(auth: AuthenticationManagerBuilder) {
-        //AuthenticationManager 使用我们的 lightSwordUserDetailService 来获取用户信息
+        //AuthenticationManager 使用我们的 MyUserDetailService 来获取用户信息
         auth.userDetailsService(userDetailsService())
             .passwordEncoder(passwordEncoder())
     }

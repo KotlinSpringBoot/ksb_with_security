@@ -2,7 +2,7 @@
 
 <div class="container text-primary text-center">
     <div class="jumbotron">
-        <h1 class="">快速开始</h1>
+        <h1 class="">用户页面</h1>
         <p><a class="btn btn-primary btn-lg" role="button">
             学习更多</a>
         </p>

@@ -19,9 +19,4 @@ class ManageController {
         return "/admin"
     }
 
-    @GetMapping(value = ["/user"])
-    fun user(): String {
-        return "/user"
-    }
-
 }

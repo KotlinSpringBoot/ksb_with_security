@@ -16,7 +16,6 @@
     <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.js"></script>
     <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.js"></script>
 
-
 </head>
 <body>
 <div id="NavPage">
@@ -27,25 +26,22 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li class="active" datatype="nav-item">
+                    <li datatype="nav-item">
                         <a href="/">首页</a>
                     </li>
-                    <li class="nav-item" datatype="nav-item">
-                        <a href="/main">快速开始</a>
+                    <li datatype="nav-item">
+                        <a href="/main">用户页面</a>
                     </li>
                     <li datatype="nav-item">
-                        <a href="/user"> 用户列表</a>
-                    </li>
-                    <li datatype="nav-item">
-                        <a href="/admin">系统管理</a>
+                        <a href="/admin">管理员页面</a>
                     </li>
 
                     <li class="divider"></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        ${(Session["SPRING_SECURITY_CONTEXT"].authentication.principal.username)!} <b
-                                class="caret"></b>
+                        ${(Session["SPRING_SECURITY_CONTEXT"].authentication.principal.username)!}
+                            <b class="caret"></b>
                         </a>
 
                         <ul class="dropdown-menu">
@@ -56,7 +52,6 @@
                             <li><a href="#"> React </a></li>
                             <li class="divider"></li>
                             <li><a href="/logout">退出</a></li>
-                            <li class="divider"></li>
                         </ul>
                     </li>
                 </ul>
