@@ -4,13 +4,13 @@ import com.ksb.ksb_with_security.dao.HttpTestRecordDao
 import com.ksb.ksb_with_security.entity.HttpTestRecord
 import com.ksb.ksb_with_security.http.HttpEngine
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContext
 import org.springframework.security.core.userdetails.User
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.context.request.RequestContextHolder
-import javax.servlet.http.HttpServletRequest
+import org.springframework.web.context.request.ServletRequestAttributes
 import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 
@@ -20,11 +20,12 @@ class HttpTestController {
 
     @PostMapping("/httpTest")
     fun doTest(@Valid httpTestRequest: HttpTestRequest, bindingResult: BindingResult): HttpTestResult {
-        val request = RequestContextHolder.getRequestAttributes() as HttpServletRequest
+        val request = (RequestContextHolder.getRequestAttributes() as ServletRequestAttributes).request
 //        ${(Session["SPRING_SECURITY_CONTEXT"].authentication.principal.username)!}
 
-        val authentication = request.session.getAttribute("SPRING_SECURITY_CONTEXT") as Authentication
-        val username  = (authentication.principal as User).username
+        // 从 Spring Security 当前 session 中获取用户对象
+        val authentication = (request.session.getAttribute("SPRING_SECURITY_CONTEXT") as SecurityContext).authentication
+        val username = (authentication.principal as User).username
 
         if (bindingResult.hasErrors()) {
             var msg = ""
