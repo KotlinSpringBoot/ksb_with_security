@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+
 
 /**
 prePostEnabled :决定Spring Security的前注解是否可用 [@PreAuthorize,@PostAuthorize,..]
@@ -32,28 +34,40 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     @Throws(Exception::class)
+    override fun configure(web: WebSecurity) {
+        web.ignoring().antMatchers("/", // 首页不拦截
+                "/css/**",
+                "/fonts/**",
+                "/js/**",
+                "/plugins/**",
+                "/images/**" // 不拦截静态资源
+        )
+    }
+
+    @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.csrf().disable()
         http.authorizeRequests()
-                .antMatchers("/", // 首页不拦截
-                        "/css/**",
-                        "/fonts/**",
-                        "/js/**",
-                        "/images/**" // 不拦截静态资源
+                .antMatchers(
+                        "/login/**"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login")// url 请求路径，对应 LoginController 里面的 @GetMapping("/login")
+                .formLogin()
+                .loginPage("/login") // @param loginPage the login page to redirect to if authentication is required。 url 请求路径，对应 LoginController 里面的 @GetMapping("/login")
+                .loginProcessingUrl("/login") // POST, Specifies the URL to validate the credentials
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/main").permitAll()
+                .defaultSuccessUrl("/main")//登陆成功路径
+//                .defaultSuccessUrl("/login/success")//登陆成功路径
+//                .failureUrl("/login/failure")//登陆失败路径
                 .and()
                 .exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
-//            .exceptionHandling().accessDeniedPage("/403")
+                //.exceptionHandling().accessDeniedPage("/403")
                 .and()
-                .logout().permitAll()
-
-        http.logout().logoutSuccessUrl("/")
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
 
     }
 

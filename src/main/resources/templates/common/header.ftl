@@ -9,12 +9,16 @@
 
     <link rel="stylesheet" href="/css/app.css">
 
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="https://cdn.bootcss.com/react/15.4.2/react.js"></script>
-    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.js"></script>
-    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+
+    <link rel="stylesheet" href="/plugins/bootstrap-table/bootstrap-table.min.css">
+    <script src="/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/plugins/bootstrap-table/bootstrap-table-locale-all.min.js"></script>
 
 </head>
 <body>
@@ -30,7 +34,7 @@
                         <a href="/">首页</a>
                     </li>
                     <li datatype="nav-item">
-                        <a href="/main">用户页面</a>
+                        <a href="/main">HTTP 接口测试</a>
                     </li>
                     <li datatype="nav-item">
                         <a href="/admin">管理员页面</a>

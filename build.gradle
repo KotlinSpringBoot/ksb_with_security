@@ -4,6 +4,7 @@ buildscript {
         springBootVersion = '2.0.0.M7'
     }
     repositories {
+        mavenLocal() // 使用本地仓库
         mavenCentral()
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
@@ -12,6 +13,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath('com.easy.springboot:demo_gradle_plugin_kor:1.0-SNAPSHOT') // 添加插件依赖
     }
 }
 
@@ -20,6 +22,8 @@ apply plugin: 'kotlin-spring'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.springboot.kor' //应用插件，名称对应到com.springboot.kor.properties属性文件名
+
 
 group = 'com.ksb'
 version = '0.0.1-SNAPSHOT'
@@ -51,4 +55,12 @@ dependencies {
     testCompile('org.springframework.security:spring-security-test')
 
     compile("com.fasterxml.jackson.module:jackson-module-kotlin")
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.9.1'
+
+}
+
+// 自定义 kor 插件的输入参数
+korArgs {
+    entity = 'Demo'
 }
