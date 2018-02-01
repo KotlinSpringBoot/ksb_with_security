@@ -171,3 +171,14 @@
     padding: 1em 2em 1em 2em;
     margin: 2em 0em 2em 0em;
 }
+
+.form-login{
+    padding: 0em 0em 0em 0em;
+    margin: 4em -36em 0em 20em;
+}
+
+.logout-btn{
+    padding: 0em 2em 0em 2em;
+    margin: 0em 0em 0em 1em;
+    border-radius: 10px;
+}

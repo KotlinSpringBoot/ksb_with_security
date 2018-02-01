@@ -39,11 +39,10 @@
 
         render: function () {
             var createItem = function (u) {
-                return (<h3 key={'li_' + u.id}> {u.username + ':' + JSON.stringify(u)}</h3>);
+                return (<li key={'li_' + u.id}> {u.username + ':' + JSON.stringify(u)}</li>);
             };
 
             var userStyle = {
-                fontSize: '2rem',
                 overflow: 'overlay',
                 textAlign: 'left'
             };
@@ -112,7 +111,16 @@
 
             $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN'])
             var searchText = $('.search').find('input').val()
+
+            var header = $("meta[name='_csrf.parameterName']").attr("content");
+            var token = $("meta[name='_csrf.token']").attr("content");
+
             $('#http-test-record').bootstrapTable({
+                ajaxOptions: {
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token); // GET 参数'_csrf'  :Invalid CSRF Token 'null' was found on the request parameter '_csrf' or header 'X-CSRF-TOKEN'
+                    }
+                },
                 url: '/httptestrecord/findAll',
                 sidePagination: "server",
                 queryParamsType: 'pageNo,pageSize',

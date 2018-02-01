@@ -26,6 +26,7 @@ class RestApiController {
 
     @Autowired lateinit var userDao: UserDao
     @GetMapping(value = ["/users"])
+    @PreAuthorize("hasRole('ADMIN')")
     fun users(): List<User> {
         return userDao.findAll()
     }

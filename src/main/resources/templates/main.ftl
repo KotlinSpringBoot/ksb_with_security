@@ -10,6 +10,9 @@
 </div>
 
 <script type="text/babel">
+    var header = $("meta[name='_csrf.parameterName']").attr("content");
+    var token = $("meta[name='_csrf.token']").attr("content");
+
     var SessionPage = React.createClass({
 
         getInitialState: function () {
@@ -25,6 +28,9 @@
                 data: {},
                 type: 'GET',
                 dataType: 'json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
                 success: function (data) {
                     this.setState({
                         context: data
@@ -51,7 +57,6 @@
             };
 
             var codeStyle = {
-                fontSize: '2rem',
                 overflow: 'overlay',
                 textAlign: 'left'
             };
@@ -91,6 +96,9 @@
                         type: 'POST',
                         data: {url: this.state.url, method: this.state.method, postData: this.state.postData},
                         dataType: 'json',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('X-CSRF-TOKEN', token); // POST, header 'X-CSRF-TOKEN'
+                        },
                         success: function (data) {
                             this.setState({
                                 result: data.result,

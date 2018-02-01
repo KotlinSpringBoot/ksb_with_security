@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>KSB with Shiro</title>
+    <meta name="_csrf.token" content="${_csrf.token}"/>
+    <meta name="_csrf.parameterName" content="${_csrf.parameterName}"/>
+    <title>LightSword</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
@@ -26,7 +28,7 @@
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/"> WEKOOL </a>
+                <a class="navbar-brand" href="/"> LightSword </a>
             </div>
             <div>
                 <ul class="nav navbar-nav">
@@ -55,7 +57,12 @@
                             <li><a href="#"> Scala </a></li>
                             <li><a href="#"> React </a></li>
                             <li class="divider"></li>
-                            <li><a href="/logout">退出</a></li>
+                            <li>
+                                <form action="/logout" method="post">
+                                    <input type="hidden" name="${_csrf.parameterName!}" value="${_csrf.token!}"/>
+                                    <button type="submit" class="logout-btn">退出</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                 </ul>
