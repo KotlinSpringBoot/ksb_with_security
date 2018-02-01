@@ -21,7 +21,7 @@ class HttpTestController {
     @PostMapping("/httpTest")
     fun doTest(@Valid httpTestRequest: HttpTestRequest, bindingResult: BindingResult): HttpTestResult {
         val request = (RequestContextHolder.getRequestAttributes() as ServletRequestAttributes).request
-//        ${(Session["SPRING_SECURITY_CONTEXT"].authentication.principal.username)!}
+        // ${(Session["SPRING_SECURITY_CONTEXT"].authentication.principal.username)!}
         // 从 Spring Security 当前 session 中获取 SPRING_SECURITY_CONTEXT 对象
         val authentication = (request.session.getAttribute("SPRING_SECURITY_CONTEXT") as SecurityContext).authentication
         val username = (authentication.principal as User).username
