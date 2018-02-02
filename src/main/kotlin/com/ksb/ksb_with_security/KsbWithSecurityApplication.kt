@@ -11,9 +11,11 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConf
 import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.support.beans
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.web.servlet.config.annotation.EnableWebMvc
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = [ErrorMvcAutoConfiguration::class])
+@EnableWebMvc
 class KsbWithSecurityApplication
 
 fun main(args: Array<String>) {

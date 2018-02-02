@@ -13,7 +13,7 @@ import org.springframework.data.repository.query.Param
 interface HttpTestRecordDao : JpaRepository<HttpTestRecord, Long> {
     @Query(value = """
         select a from #{#entityName} a
-        where concat(a.url, '|', a.method)
+        where concat(a.url, '|', a.method, '|', a.author)
         like %:searchText%
         """)
     fun findAll(@Param("searchText") searchText: String, pageable: Pageable): Page<HttpTestRecord>
