@@ -15,7 +15,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = [ErrorMvcAutoConfiguration::class])
-@EnableWebMvc
 class KsbWithSecurityApplication
 
 fun main(args: Array<String>) {

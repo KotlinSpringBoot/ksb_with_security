@@ -32,7 +32,18 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         http.csrf().disable() // 不使用 csrf
         http.authorizeRequests()
                 .antMatchers(
-                        "/login/**"
+                        "/login",
+                        "/login/**",
+                        "/**/*.js",
+                        "/**/*.js.map",
+                        "/**/*.css",
+                        "/**/*.css.map",
+                        "/**/*.jpeg",
+                        "/**/*.ico",
+                        "/**/*.jpg",
+                        "/**/*.png",
+                        "/**/*.woff",
+                        "/**/*.woff2"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()
