@@ -1,7 +1,7 @@
 buildscript {
     ext {
         kotlinVersion = '1.2.0'
-        springBootVersion = '2.0.0.M7'
+        springBootVersion = '2.0.0.RELEASE'
     }
     repositories {
         mavenLocal() // 使用本地仓库

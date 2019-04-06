@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="_csrf.token" content="${_csrf.token}"/>
     <meta name="_csrf.parameterName" content="${_csrf.parameterName}"/>
-    <title>LightSword</title>
+    <title>I</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
